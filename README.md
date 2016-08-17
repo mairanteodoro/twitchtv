@@ -1,2 +1,3 @@
 # twitchtv
-A Twitch Tv web app
+A TwitchTv web app.
+Part of my full-stack course at FreeCodeCamp.
