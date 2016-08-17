@@ -1,0 +1,15 @@
+
+span.online a {
+  color: white;
+}
+
+span.offline a {
+  color: orange;
+}
+
+span.deact a {
+  color: red;
+  /* these will deactivate links */
+  pointer-events: none;
+  cursor: default;
+}

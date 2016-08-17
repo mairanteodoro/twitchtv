@@ -1,0 +1,59 @@
+<!-- Search field -->
+<div class="input-group input-group-lg">
+  <span class="input-group-addon">Filter</span>
+  <input class="form-control" placeholder="Enter channel name..." [(ngModel)]="mySearchTerm">
+</div>
+
+<hr><br>
+<!-- Buttons -->
+<div>
+  <div class="btn-group btn-group-justified" role="group">
+    <div role="button" class="btn btn-info" (click)="allClicked()">All</div>
+    <div role="button" class="btn btn-primary" (click)="onLineClicked()">Online</div>
+    <div role="button" class="btn btn-warning" (click)="offLineClicked()">Offline</div>
+    <div role="button" class="btn btn-danger" (click)="deactClicked()">Deactivated</div>
+  </div>
+</div>
+
+<br><hr>
+<!-- Panels -->
+<div>
+  <!-- This will show up when no match has been found -->
+  <div *ngIf="(validData | filter: mySearchTerm).length === 0" class="alert alert-danger">
+    <h3 class="text-center"><strong>No results found...</strong></h3>
+  </div>
+
+  <!-- The line above cannot be included in the *ngFor below because
+       the code will not be executed when the filter returns nothing
+  -->
+  <div class="column" *ngFor="let item of validData | filter: mySearchTerm">
+    <br>
+    <div ngRepeat>
+      <div [ngClass]="{
+        'panel panel-primary': item[2] === 'online' ,
+        'panel panel-warning': item[2] === 'offline',
+        'panel panel-danger': item[2] === 'deact'
+      }">
+        <div class="panel-heading">
+          <span [ngClass]="{
+            'online': item[2] === 'online',
+            'offline': item[2] === 'offline',
+            'deact': item[2] === 'deact'
+          }">
+            <a href={{item[1]}} target="_blank">{{item[0]}}</a>
+          </span>
+        </div>
+        <div class="panel-body">
+          <span [ngClass]="{'deact': item[2] === 'deact'}">
+            <a href={{item[1]}} target="_blank"><img src="{{item[3]}}" alt="" width=20%></a>
+          </span>
+          <span *ngIf="item[2] === 'online'">
+            <!-- if the channel is streaming, show details of what it's being streamed -->
+            <a href={{item[1]}} target="_blank">{{item[4]}}</a>
+          </span>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+</div>
